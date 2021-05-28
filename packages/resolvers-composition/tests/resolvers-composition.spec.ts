@@ -52,7 +52,7 @@ describe('Resolvers composition', () => {
       `,
     });
     expect(result.errors).toBeFalsy();
-    expect(result.data.foo).toBe('FOOFOO');
+    expect(result.data!.foo).toBe('FOOFOO');
   });
   it('should compose resolvers with resolve field', async () => {
     const getFoo = () => 'FOO';
@@ -90,7 +90,7 @@ describe('Resolvers composition', () => {
       `,
     });
     expect(result.errors).toBeFalsy();
-    expect(result.data.foo).toBe('FOOFOO');
+    expect(result.data!.foo).toBe('FOOFOO');
   });
   it('should compose subscription resolvers', async () => {
     const array1 = [1, 2];
@@ -169,7 +169,7 @@ describe('Resolvers composition', () => {
       `,
     });
     expect(result.errors).toBeFalsy();
-    expect(result.data.foo).toBe('FOOFOO');
+    expect(result.data!.foo).toBe('FOOFOO');
   });
   it('should be able to take nested composition objects for subscription resolvers', async () => {
     const array1 = [1, 2];

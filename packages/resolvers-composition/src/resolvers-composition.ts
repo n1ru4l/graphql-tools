@@ -102,16 +102,20 @@ export function composeResolvers<Resolvers extends Record<string, any>>(
   const mappingResult: { [path: string]: ((...args: any[]) => any)[] } = {};
 
   Object.keys(mapping).forEach((resolverPath: string) => {
-    if (mapping[resolverPath] instanceof Array || typeof mapping[resolverPath] === 'function') {
-      const composeFns = mapping[resolverPath] as ResolversComposition | ResolversComposition[];
+    const value = mapping[resolverPath];
+    if (value == null) {
+      return;
+    }
+    if (value instanceof Array || typeof value === 'function') {
+      const composeFns = value as ResolversComposition | ResolversComposition[];
       const relevantFields = resolveRelevantMappings(resolvers, resolverPath, mapping);
 
       relevantFields.forEach((path: string) => {
         mappingResult[path] = asArray(composeFns);
       });
     } else {
-      Object.keys(mapping[resolverPath]).forEach(fieldName => {
-        const composeFns = mapping[resolverPath][fieldName];
+      Object.keys(value).forEach(fieldName => {
+        const composeFns = value[fieldName];
         const relevantFields = resolveRelevantMappings(resolvers, resolverPath + '.' + fieldName, mapping);
 
         relevantFields.forEach((path: string) => {
